@@ -1,13 +1,10 @@
 {
     "name": "teste-desenvolvedor-fullstack",
     "version": "1.0.0",
-    "main": "index.js",
     "scripts": {
         "webpack:server": "npx webpack --config webpack.server.js --watch",
-        "webpack:client": "npx webpack --config webpack.config.js --watch",
         "serve": "nodemon ./dist/bundle_server.js",
-        "client": "cd .. && cd client && npm start",
-        "start": "npm-run-all --parallel serve client webpack:server webpack:client"
+        "start": "npm-run-all --parallel serve  webpack:server"
     },
     "author": "Adejar Soares",
     "license": "ISC",
