@@ -19,7 +19,6 @@ function Situation() {
     }
 
     const loadData = async () => {
-        console.log(stockInput)
         const url = `http://localhost:3030/stocks/${stockInput}/quote`;
         const response = await fetch(url);
         const data = await response.json();
