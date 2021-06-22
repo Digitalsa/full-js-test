@@ -160,6 +160,7 @@ routes.post('/stocks/:stock_name/compare', async function (req, res) {
     const { stock_name } = req.params
 
     let stocks = req.body.stocks;
+    stocks.push(stock_name)
     let lastPrices = new Array();
 
     for (var i = 0; i < stocks.length; i++) {
