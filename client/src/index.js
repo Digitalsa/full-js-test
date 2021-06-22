@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CurrentSituation from './views/current-situation'
 import HistoryStocks from './views/history-stocks'
 import Compare from './views/compare'
+import EarningProjection from './views/earnings-projection'
 
 ReactDOM.render(
   <BrowserRouter>
@@ -21,6 +22,7 @@ ReactDOM.render(
       <Route exact path="/cotacao_recente" component={CurrentSituation} />
       <Route exact path="/historico_preco" component={HistoryStocks} />
       <Route exact path="/comparar_preco" component={Compare} />
+      <Route exact path="/projecao_ganhos" component={EarningProjection} />
     </Switch>
   </BrowserRouter>
   , document.getElementById('root')
