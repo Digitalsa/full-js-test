@@ -213,7 +213,7 @@ routes.get('/stocks/:stock_name/gains', async function (req, res) {
 
     let infoStock = await infoStocks(symbol['bestMatches'][0]['1. symbol'])
 
-    url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol['bestMatches'][0]['1. symbol']}&outputsize=full&apikey=demo`;
+    url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol['bestMatches'][0]['1. symbol']}&outputsize=full&apikey=546M72GB5ZUMCF4H`;
 
     let response = await doRequest(url)
 
