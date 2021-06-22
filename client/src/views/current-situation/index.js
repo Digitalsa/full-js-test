@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { Button } from 'reactstrap';
 import { Table } from 'reactstrap';
 import Alert from '../../components/Alert';
+import CurrentSituation_Controller from '../../controllers/current-situation_Controller'
 
 function Situation() {
 
@@ -19,9 +20,10 @@ function Situation() {
     }
 
     const loadData = async () => {
-        const url = `http://localhost:3030/stocks/${stockInput}/quote`;
-        const response = await fetch(url);
+
+        const response = await CurrentSituation_Controller.read(stockInput)
         const data = await response.json();
+
         if (response.status === 200) {
             setResponde(data)
         } else {

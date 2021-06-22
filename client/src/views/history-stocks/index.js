@@ -6,6 +6,7 @@ import { Button } from 'reactstrap';
 import { Table } from 'reactstrap';
 import Alert from '../../components/Alert';
 import Calendar from '../../components/Calendar'
+import HistoryStocks_Controller from '../../controllers/History-stocks_Controller';
 
 function Projection() {
 
@@ -28,8 +29,8 @@ function Projection() {
     }
 
     const loadData = async () => {
-        const url = `http://localhost:3030/stocks/${stockInput}/history?from=${firstDateInput}&to=${lastDateInput}`;
-        const response = await fetch(url);
+
+        const response = await HistoryStocks_Controller.read(stockInput, firstDateInput, lastDateInput)
         const data = await response.json();
 
         if (response.status === 200) {

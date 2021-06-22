@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { Button } from 'reactstrap';
 import { Table } from 'reactstrap';
 import Alert from '../../components/Alert';
+import Compare_Controller from '../../controllers/Compare_Controller';
 
 function Compare() {
 
@@ -33,15 +34,7 @@ function Compare() {
 
     const loadData = async () => {
         setStocksList([]);
-        const url = `http://localhost:3030/stocks/${stockInput}/compare`;
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "stocks": stocksList })
-        });
+        const response = await Compare_Controller.read(stockInput, stocksList)
         const data = await response.json();
         if (response.status === 200) {
             setResponde(data)
