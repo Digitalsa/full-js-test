@@ -3,12 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'regenerator-runtime/runtime'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+/** Pag */
+import CurrentSituation from './views/current-situation'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <BrowserRouter>
+
+    <Switch>
+      <Route exact path="/" component={App} />
+      <Route exact path="/cotacao_recente" component={CurrentSituation} />
+    </Switch>
+  </BrowserRouter>
+  , document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
