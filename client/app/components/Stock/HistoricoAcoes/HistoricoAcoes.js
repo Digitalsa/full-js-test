@@ -1,8 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
-import api from "../../../services/api";
 import Button from "../../inputs/Button/Button";
 import TextFieldForm from "../../inputs/TextField/TextFieldForm";
 import HistoricoGrafico from "./HistoricoGrafico";
+
 const HistoricoAcoes = () => {
   const [Value, setValue] = useState("");
   const [dataStock, setDataStock] = useState([]);
@@ -25,7 +26,7 @@ const HistoricoAcoes = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    api
+    axios
       .get("stocks/" + Value + "/history?from=" + From + "&to=" + To)
       .then((response) => {
         const data = response.data.pricing;

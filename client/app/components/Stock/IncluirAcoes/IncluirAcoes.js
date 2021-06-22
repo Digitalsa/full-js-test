@@ -3,12 +3,11 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import axios from "axios";
 import React, { useState } from "react";
-import api from "../../../services/api";
 import Button from "../../inputs/Button/Button";
 import TextFieldForm from "../../inputs/TextField/TextFieldForm";
 import AcoesInseridas from "./AcoesInseridas";
-
 const IncluirAcoes = () => {
   const [value, setValue] = useState("");
 
@@ -23,7 +22,7 @@ const IncluirAcoes = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    api
+    axios
       .get("stocks/" + value.value + "/quote")
       .then((response) => {
         const data = response.data.pricedAt;

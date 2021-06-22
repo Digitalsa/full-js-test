@@ -1,5 +1,5 @@
+import axios from "axios";
 import React, { useState } from "react";
-import api from "../../../services/api";
 import ButtonForm from "../../inputs/Button/Button";
 import TextFieldForm from "../../inputs/TextField/TextFieldForm";
 import CompareGrafico from "./CompareGrafico";
@@ -19,7 +19,7 @@ function CompareAcoes() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    api
+    axios
       .get("stocks/" + Value + "," + Name + "/compare")
       .then((response) => {
         const data = response.data.lastPrices;

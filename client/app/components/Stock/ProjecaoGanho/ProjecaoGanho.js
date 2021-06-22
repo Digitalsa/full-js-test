@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
 import React, { useState } from "react";
-import api from "../../../services/api";
 import ButtonForm from "../../inputs/Button/Button";
 import TextFieldForm from "../../inputs/TextField/TextFieldForm";
 import ProjecaoGanhoCard from "./ProjecaoGanhoCard";
@@ -32,7 +32,7 @@ function ProjecaoGanho() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    api
+    axios
       .get(
         "stocks/" +
           Symbol +
