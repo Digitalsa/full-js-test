@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import Header from '../../components/Header';
-import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
-import { Container, Row, Col } from 'reactstrap';
-import { Button } from 'reactstrap';
-import { Table } from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input, Button, Table, Container, Row, Col, Spinner, FormFeedback } from 'reactstrap';
 import Alert from '../../components/Alert';
 import Compare_Controller from '../../controllers/Compare_Controller';
 
@@ -13,6 +10,12 @@ function Compare() {
     let [stocksInput, setStocksInput] = useState('');
     let [stocksList, setStocksList] = useState([]);
     let [response, setResponde] = useState({ lastPrices: [] });
+
+    let [nameStockInvalid, setNameStockInvalid] = useState(false);
+    let [nameStocksInvalid, setNameStocksInvalid] = useState(false);
+
+    let [loading, setLoading] = useState(false);
+    let [disabledButtonFind, setDisabledButtonFind] = useState(false);
 
     const [visibleAlert, setVisibleAlert] = useState(false);
     const [messageAlert, setMessageAlert] = useState('');
@@ -32,10 +35,41 @@ function Compare() {
         }
     }
 
+    function checkForm() {
+
+        let passed = true;
+
+        if (stockInput === "") {
+            setNameStockInvalid(true)
+            passed = false;
+        } else {
+            setNameStockInvalid(false)
+        }
+        if (stocksList.length === 0) {
+            setNameStocksInvalid(true)
+            passed = false;
+        } else {
+            setNameStocksInvalid(false)
+        }
+
+        return passed;
+    }
+
     const loadData = async () => {
+
+        if (!checkForm()) return
+
         setStocksList([]);
+
+        setLoading(true);
+        setDisabledButtonFind(true)
+
         const response = await Compare_Controller.read(stockInput, stocksList)
         const data = await response.json();
+
+        setLoading(false);
+        setDisabledButtonFind(false)
+
         if (response.status === 200) {
             setResponde(data)
         } else {
@@ -53,17 +87,14 @@ function Compare() {
         <div>
             <Header />
             <div>
-
-
                 <Container>
                     <Row>
                         <Alert visibleAlert={visibleAlert} messageAlert={messageAlert} />
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
                             <h5>Informe o nome da ação:</h5>
                             <InputGroup>
-                                <Input onChange={handleinputChange} name="stock" />
-                                <InputGroupAddon addonType="append">
-                                </InputGroupAddon>
+                                <Input onChange={handleinputChange} name="stock" invalid={nameStockInvalid} />
+                                <FormFeedback>Informe o nome da ação!</FormFeedback>
                             </InputGroup>
                         </Col>
                     </Row><br />
@@ -71,9 +102,16 @@ function Compare() {
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
                             <h5>Informe o nome da ação a ser comparada:</h5>
                             <InputGroup>
-                                <Input onKeyDown={keyPress} onChange={handleinputChange} name="stocks" value={stocksInput} />
+                                <Input onKeyDown={keyPress} onChange={handleinputChange} name="stocks" value={stocksInput} invalid={nameStocksInvalid} />
                                 <InputGroupAddon addonType="append">
+                                    <Button color="secondary" onClick={() => {
+                                        setStocksList([...stocksList, stocksInput]);
+                                        setStocksInput('')
+                                    }}>
+                                        Adicionar
+                                    </Button>
                                 </InputGroupAddon>
+                                <FormFeedback>Informe ao menos uma ação!</FormFeedback>
                             </InputGroup>
                         </Col>
                     </Row><br />
@@ -88,14 +126,15 @@ function Compare() {
                             </Input>
                         </Col>
                     </Row><br /><br /><br />
-
                     <Row>
                         <Col xs="6" sm="4"></Col>
                         <Col xs="6" sm="4"></Col>
                         <Col sm="4">
-                            <Button color="primary" onClick={loadData}>BUSCAR</Button>
+                            <Button color="primary" disabled={disabledButtonFind} onClick={loadData}>{loading ?
+                                <Spinner color="success" children="" /> :
+                                "BUSCAR"
+                            }</Button>
                         </Col>
-
                     </Row><br /><br /><br />
                     <Col>
                         <Table>

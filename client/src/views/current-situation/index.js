@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import Header from '../../components/Header';
-import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
-import { Container, Row, Col } from 'reactstrap';
-import { Button } from 'reactstrap';
-import { Table } from 'reactstrap';
+import { InputGroup, FormFeedback, Input, Button, Table, Container, Row, Col, Spinner } from 'reactstrap';
 import Alert from '../../components/Alert';
 import CurrentSituation_Controller from '../../controllers/Current-situation_Controller'
 
@@ -11,6 +8,11 @@ function Situation() {
 
     let [stockInput, setInput] = useState('');
     let [response, setResponde] = useState();
+
+    let [loading, setLoading] = useState(false);
+    let [disabledButtonFind, setDisabledButtonFind] = useState(false);
+
+    let [nameStockInvalid, setNameStockInvalid] = useState(false);
 
     const [visibleAlert, setVisibleAlert] = useState(false);
     const [messageAlert, setMessageAlert] = useState('');
@@ -21,8 +23,21 @@ function Situation() {
 
     const loadData = async () => {
 
+        if (stockInput === "") {
+            setNameStockInvalid(true)
+            return;
+        }
+
+        setNameStockInvalid(false)
+
+        setLoading(true);
+        setDisabledButtonFind(true)
+
         const response = await CurrentSituation_Controller.read(stockInput)
         const data = await response.json();
+
+        setLoading(false);
+        setDisabledButtonFind(false)
 
         if (response.status === 200) {
             setResponde(data)
@@ -47,9 +62,8 @@ function Situation() {
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
                             <h3>Informe o nome da ação:</h3>
                             <InputGroup>
-                                <Input onChange={handleinputChange} />
-                                <InputGroupAddon addonType="append">
-                                </InputGroupAddon>
+                                <Input onChange={handleinputChange} invalid={nameStockInvalid} />
+                                <FormFeedback>Informe o nome da ação!</FormFeedback>
                             </InputGroup>
                         </Col>
                     </Row><br /><br /><br />
@@ -57,7 +71,10 @@ function Situation() {
                         <Col xs="6" sm="4"></Col>
                         <Col xs="6" sm="4"></Col>
                         <Col sm="4">
-                            <Button color="primary" onClick={loadData}>BUSCAR</Button>
+                            <Button color="primary" disabled={disabledButtonFind} onClick={loadData}>{loading ?
+                                <Spinner color="success" children="" /> :
+                                "BUSCAR"
+                            }</Button>
                         </Col>
 
                     </Row><br /><br /><br />

@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import Header from '../../components/Header';
-import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
-import { Container, Row, Col } from 'reactstrap';
-import { Button } from 'reactstrap';
-import { Table } from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input, Button, Table, Container, Row, Col, Spinner, FormFeedback } from 'reactstrap';
 import Alert from '../../components/Alert';
 import EarningsProjection_Controller from '../../controllers/Earnings-projection_Controller';
+import Calendar from '../../components/Calendar'
 
 function Projection() {
 
@@ -13,6 +11,13 @@ function Projection() {
     const [purchasedAtInput, setPurchasedAtInput,] = useState('');
     const [purchasedAmountInput, setPurchasedAmountInput] = useState('');
     const [response, setResponde] = useState();
+
+    let [nameStockInvalid, setNameStockInvalid] = useState(false);
+    let [purchasedAtInputInvalid, setPurchasedAtInputInvalid] = useState(false);
+    let [purchasedAmountInputInvalid, setPurchasedAmountInputInvalid] = useState(false);
+
+    let [loading, setLoading] = useState(false);
+    let [disabledButtonFind, setDisabledButtonFind] = useState(false);
 
     const [visibleAlert, setVisibleAlert] = useState(false);
     const [messageAlert, setMessageAlert] = useState('');
@@ -27,9 +32,45 @@ function Projection() {
         }
     }
 
+    function checkForm() {
+
+        let passed = true;
+
+        if (stockInput === "") {
+            setNameStockInvalid(true)
+            passed = false;
+        } else {
+            setNameStockInvalid(false)
+        }
+        if (purchasedAmountInput === "") {
+            setPurchasedAmountInputInvalid(true)
+            passed = false;
+        } else {
+            setPurchasedAmountInputInvalid(false)
+        }
+        if (purchasedAtInput === "") {
+            setPurchasedAtInputInvalid(true)
+            passed = false;
+        } else {
+            setPurchasedAtInputInvalid(false)
+        }
+
+        return passed;
+    }
+
     const loadData = async () => {
+
+        if (!checkForm()) return
+
+        setLoading(true);
+        setDisabledButtonFind(true)
+
         const response = await EarningsProjection_Controller.read(stockInput, purchasedAmountInput, purchasedAtInput)
         const data = await response.json();
+
+        setLoading(false);
+        setDisabledButtonFind(false)
+
         if (response.status === 200) {
             setResponde(data)
         } else {
@@ -38,7 +79,6 @@ function Projection() {
             setTimeout(function () {
                 setVisibleAlert(false)
             }, 8000);
-
             setMessageAlert(data.error)
         }
 
@@ -55,25 +95,22 @@ function Projection() {
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
                             <h5>Informe o nome da ação:</h5>
                             <InputGroup>
-                                <Input onChange={handleinputChange} name="stock" />
-                                <InputGroupAddon addonType="append">
-                                </InputGroupAddon>
+                                <Input onChange={handleinputChange} name="stock" invalid={nameStockInvalid} />
+                                <FormFeedback>Informe o nome da ação!</FormFeedback>
                             </InputGroup>
                         </Col>
                     </Row><br />
                     <Row>
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
-                            <h5>Data da compra:</h5>
-                            <Input type="date" name="purchasedAt" onChange={handleinputChange} />
+                            <Calendar h5={"Data da compra:"} name={"purchasedAt"} onChange={handleinputChange} dateInvalid={purchasedAtInputInvalid} />
                         </Col>
                     </Row><br />
                     <Row>
                         <Col sm="12" md={{ size: 6, offset: 3 }}>
                             <h5>Nº de ações:</h5>
                             <InputGroup>
-                                <Input type="number" onChange={handleinputChange} name="purchasedAmount" />
-                                <InputGroupAddon addonType="append">
-                                </InputGroupAddon>
+                                <Input type="number" onChange={handleinputChange} name="purchasedAmount" invalid={purchasedAmountInputInvalid} />
+                                <FormFeedback>Informe o Nº de ações!</FormFeedback>
                             </InputGroup>
                         </Col>
                     </Row><br />
@@ -82,7 +119,10 @@ function Projection() {
                         <Col xs="6" sm="4"></Col>
                         <Col xs="6" sm="4"></Col>
                         <Col sm="4">
-                            <Button color="primary" onClick={loadData}>BUSCAR</Button>
+                            <Button color="primary" disabled={disabledButtonFind} onClick={loadData}>{loading ?
+                                <Spinner color="success" children="" /> :
+                                "BUSCAR"
+                            }</Button>
                         </Col>
 
                     </Row><br /><br /><br />
