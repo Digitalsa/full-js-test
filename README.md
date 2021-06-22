@@ -1,6 +1,6 @@
 
 
-#Como rodar
+# Como rodar
 
 Baixe o projeto e instale as dependencias
 
