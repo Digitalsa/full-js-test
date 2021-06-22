@@ -10,6 +10,6 @@ test('Botão -> Buscar', () => {
 
 test('Label -> Informe o nome da ação', () => {
     const utils = render(<CurrentSituation />);
-    const linkElement = utils.getByText(/Informe o nome da ação/i);
+    const linkElement = utils.getByText("Informe o nome da ação:");
     expect(linkElement).toBeInTheDocument();
 })
