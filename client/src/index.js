@@ -3,12 +3,29 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'regenerator-runtime/runtime'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+/** Pag */
+import CurrentSituation from './views/current-situation'
+import HistoryStocks from './views/history-stocks'
+import Compare from './views/compare'
+import EarningProjection from './views/earnings-projection'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <BrowserRouter>
+
+    <Switch>
+      <Route exact path="/" component={App} />
+      <Route exact path="/cotacao_recente" component={CurrentSituation} />
+      <Route exact path="/historico_preco" component={HistoryStocks} />
+      <Route exact path="/comparar_preco" component={Compare} />
+      <Route exact path="/projecao_ganhos" component={EarningProjection} />
+    </Switch>
+  </BrowserRouter>
+  , document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

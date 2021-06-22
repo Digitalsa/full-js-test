@@ -1,7 +1,6 @@
 {
     "name": "teste-desenvolvedor-fullstack",
     "version": "1.0.0",
-    "main": "index.js",
     "scripts": {
         "webpack:server": "npx webpack --config webpack.server.js --watch",
         "webpack:client": "npx webpack --config webpack.config.js --watch",
