@@ -92,7 +92,7 @@ function Projection() {
                                 <tr>
                                     <th>#</th>
                                     <th>Ação</th>
-                                    <th>Nº de ações</th>
+                                    <th>Nº de ações compradas</th>
                                     <th>Data da compra</th>
                                     <th>Preço data da compra</th>
                                     <th>Preço atual</th>
