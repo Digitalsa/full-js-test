@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 /** Pag */
 import CurrentSituation from './views/current-situation'
+import HistoryStocks from './views/history-stocks'
 
 ReactDOM.render(
   <BrowserRouter>
@@ -17,6 +18,7 @@ ReactDOM.render(
     <Switch>
       <Route exact path="/" component={App} />
       <Route exact path="/cotacao_recente" component={CurrentSituation} />
+      <Route exact path="/historico_preco" component={HistoryStocks} />
     </Switch>
   </BrowserRouter>
   , document.getElementById('root')
