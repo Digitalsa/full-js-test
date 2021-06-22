@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { Button } from 'reactstrap';
 import { Table } from 'reactstrap';
 import Alert from '../../components/Alert';
+import EarningsProjection_Controller from '../../controllers/Earnings-projection_Controller';
 
 function Projection() {
 
@@ -27,8 +28,7 @@ function Projection() {
     }
 
     const loadData = async () => {
-        const url = `http://localhost:3030/stocks/${stockInput}/gains?purchasedAmount=${purchasedAmountInput}&purchasedAt=${purchasedAtInput}`;
-        const response = await fetch(url);
+        const response = await EarningsProjection_Controller.read(stockInput, purchasedAmountInput, purchasedAtInput)
         const data = await response.json();
         if (response.status === 200) {
             setResponde(data)
