@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { Button } from 'reactstrap';
 import { Table } from 'reactstrap';
 import Alert from '../../components/Alert';
-import CurrentSituation_Controller from '../../controllers/current-situation_Controller'
+import CurrentSituation_Controller from '../../controllers/Current-situation_Controller'
 
 function Situation() {
 
