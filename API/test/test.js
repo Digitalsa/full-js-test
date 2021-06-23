@@ -35,7 +35,7 @@ describe("Teste API", function () {
                     done();
                 }
             )
-        }, 15000);
+        }, 20000);
     });
 
 
@@ -74,7 +74,7 @@ describe("Teste API", function () {
                     done();
                 }
             )
-        }, 15000);
+        }, 20000);
 
     });
 
@@ -116,7 +116,7 @@ describe("Teste API", function () {
                     done();
                 }
             )
-        }, 15000);
+        }, 20000);
 
     });
 
@@ -148,7 +148,7 @@ describe("Teste API", function () {
                     done();
                 }
             )
-        }, 15000);
+        }, 30000);
 
     });
 });
