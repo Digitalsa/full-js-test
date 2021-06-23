@@ -125,13 +125,13 @@ function Compare() {
                                 }
                             </Input>
                         </Col>
-                    </Row><br /><br /><br />
+                    </Row><br />
                     <Row>
                         <Col xs="6" sm="4"></Col>
                         <Col xs="6" sm="4"></Col>
                         <Col sm="4">
                             <Button color="primary" disabled={disabledButtonFind} onClick={loadData}>{loading ?
-                                <Spinner color="success" children="" /> :
+                                <Spinner color="light" children="" /> :
                                 "BUSCAR"
                             }</Button>
                         </Col>
