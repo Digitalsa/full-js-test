@@ -31,7 +31,7 @@ function Alert({ visibleAlert, messageAlert }) {
                 }}
                 isOpen={visible}>
                 <ToastHeader icon="danger">
-                    Erro
+                    Ops! Algo não deu certo
                 </ToastHeader>
                 <ToastBody>
                     {message}
