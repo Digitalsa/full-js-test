@@ -52,7 +52,7 @@ module.exports = (app) => {
          */
         for (key in timeSeries) {
           if (timeSeries.hasOwnProperty(key)) {
-            var finData = timeSeries[key];
+            let finData = timeSeries[key];
             const opening = parseFloat(finData["1. open"]).toFixed(2);
             const high = parseFloat(finData["2. high"]).toFixed(2);
             const low = parseFloat(finData["3. low"]).toFixed(2);
