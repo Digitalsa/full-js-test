@@ -42,7 +42,7 @@ mocha
 ```
 
 O teste verifica o retorno e o conteúdo das informações de cada rota.
-Ele é executado a cada 15 segundos pois existe um limite de requisições que podem ser feitas ao endpoint: https://www.alphavantage.co
+Ele é executado de 20 a 30 segundos pois existe um limite de requisições que podem ser feitas ao endpoint: https://www.alphavantage.co
 
 # Executar o teste - FrontEnd
 
