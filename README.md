@@ -6,10 +6,9 @@ Outro recurso interessante é a possibilidade de projetar ganhos com compras.
 # Executar a aplicação
 
 Siga as etapas:
-
-✅ Faça o download do repositório;
-✅ Abra o terminal na pasta do download;
-✅ Instale as dependências para o frontend:
+   - Faça o download do repositório;
+   - Abra o terminal na pasta do download;
+   - Instale as dependências para o frontend;
 
  ```sh
 cd client
